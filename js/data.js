@@ -33,3 +33,5 @@ const createObjects = function(number){
   return mass;
 };
 createObjects(25);
+
+console.log('Проверка')
