@@ -24,8 +24,6 @@ const getLength = function (field, amount) {
 
 getLength(100, 140);
 
-
-
 const createNewElement = (tagName, className) => {
   const newElement = document.createElement(tagName);
   newElement.classList.add(className);

@@ -69,11 +69,17 @@ const fullscreen = (picture) => {
   document.body.classList.add('modal-open');
 };
 
-bigPictureWrapper.addEventListener('keydown', function(evt){
-  if (evt.key === 27){
-    bigPictureWrapper.classList.add('hidden')
-    console.log('dasd')
+document.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 27) {
+    bigPictureWrapper.classList.add('hidden');
+    document.body.classList.remove('modal-open');
   }
+});
+
+const  fullscreenClose = document.querySelector('.big-picture__cancel');
+fullscreenClose.addEventListener('click', function(){
+  bigPictureWrapper.classList.add('hidden');
+  document.body.classList.remove('modal-open');
 });
 
 export { bigPictureWrapper, fullscreen };

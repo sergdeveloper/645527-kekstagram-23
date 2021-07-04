@@ -1,4 +1,4 @@
-import { fullscreen} from "./fullscreen.js";
+import { fullscreen} from './fullscreen.js';
 const miniPhoto = document.querySelector('#picture').content.querySelector('.picture');
 const photosList = document.querySelector('.pictures');
 const listNewFragment = document.createDocumentFragment();
@@ -13,9 +13,9 @@ const createFullGallery = function(objects){
       fullscreen(picture);
     });
     photosList.appendChild(photoElement);
-});
-photosList.appendChild(listNewFragment);
-}
+  });
+  photosList.appendChild(listNewFragment);
+};
 export {createFullGallery};
 
 
