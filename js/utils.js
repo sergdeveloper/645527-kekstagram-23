@@ -24,4 +24,10 @@ const getLength = function (field, amount) {
 
 getLength(100, 140);
 
-export {getRandom, getLength};
+const createNewElement = (tagName, className) => {
+  const newElement = document.createElement(tagName);
+  newElement.classList.add(className);
+  return newElement;
+};
+
+export {getRandom, getLength, createNewElement};

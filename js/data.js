@@ -17,14 +17,14 @@ const createObjects = function(number){
       id: i+1,
       avatar: 'img/avatar-' + getRandom(1,6) +'.svg',
       text: textArray[Math.floor(Math.random()*textArray.length)],
-      name: names[Math.floor(Math.random()*names.length)],
+      author: names[Math.floor(Math.random()*names.length)],
     });
   }
 
-  for (let i = 0; i < number; i++) {
+  for (let i = 1; i < number; i++) {
     mass.push({
       id: i+1,
-      url: 'photos/i' + i +'.jpg',
+      url: 'photos/' + i +'.jpg',
       description: 'Введите описание фотографии',
       likes: getRandom(25, 200),
       comment: comments[Math.floor(Math.random()*names.length)],

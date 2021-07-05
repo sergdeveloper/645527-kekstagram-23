@@ -1,15 +1,21 @@
-import {createObjects} from './data.js';
-const miniPhoto = document.querySelector('#picture')
-  .content;
+import { fullscreen} from './fullscreen.js';
+const miniPhoto = document.querySelector('#picture').content.querySelector('.picture');
 const photosList = document.querySelector('.pictures');
-const userPhotos = createObjects();
-const picturesFragment = document.createDocumentFragment();
-userPhotos.forEach(({url, description, likes}) => {
-  const photoElement = miniPhoto.cloneNode(true);
-  photoElement.querySelector('.picture__img').src = url;
-  photoElement.querySelector('.picture__comments').textContent = description.length;
-  photoElement.querySelector('.picture__likes').textContent = likes;
-  photosList.appendChild(photoElement);
-});
+const listNewFragment = document.createDocumentFragment();
 
-photosList.appendChild(picturesFragment);
+const createFullGallery = function(objects){
+  objects.forEach((picture) => {
+    const photoElement = miniPhoto.cloneNode(true);
+    photoElement.querySelector('.picture__img').src = picture.url;
+    photoElement.querySelector('.picture__comments').textContent = picture.description.length;
+    photoElement.querySelector('.picture__likes').textContent = picture.likes;
+    photoElement.addEventListener('click', function () {
+      fullscreen(picture);
+    });
+    photosList.appendChild(photoElement);
+  });
+  photosList.appendChild(listNewFragment);
+};
+export {createFullGallery};
+
+
