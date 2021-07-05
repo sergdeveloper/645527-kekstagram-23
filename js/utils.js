@@ -30,4 +30,8 @@ const createNewElement = (tagName, className) => {
   return newElement;
 };
 
-export {getRandom, getLength, createNewElement};
+function isEscapeEvent(evt) {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+}
+
+export {getRandom, getLength, createNewElement, isEscapeEvent};
