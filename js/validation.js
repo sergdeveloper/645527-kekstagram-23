@@ -1,93 +1,80 @@
 import { getLength } from './utils.js';
-
-const MAX_LENGTH_COMMENT = 140;
-const MAX_COUNT_HASHTAGS = 5;
-
+const MAX_COMMENT_LENGTH = 140;
+const MAX_HASHTAGS_COUNT = 5;
 const formDownloadPicture = document.querySelector('#upload-select-image');
-const popupEditor = formDownloadPicture.querySelector('.img-upload__overlay');
-const inputHashtag = popupEditor.querySelector('#input-hashtag');
-const inputComment = popupEditor.querySelector('#input-comment');
-
+const overlayEditor = formDownloadPicture.querySelector('.img-upload__overlay');
+const inputComment = overlayEditor.querySelector('#input-comment');
+const inputHashtag = overlayEditor.querySelector('#input-hashtag');
+//Проверка активности инпута
+function checkInputIsActive () {
+  const activeElement = document.activeElement;
+  return activeElement === inputHashtag || activeElement === inputComment;
+}
+//Проверка хэштегов на соответствие условиям (сделал как подсказывали в самом ДЗ, возможно позже вернусь)
 function checkSameHashtags (hashtag) {
-  const regExp = /^#[A-Za-zА-Яа-я0-9]{1,19}$/; //число 19 - не более 19 символов после решетки
+  const regExp = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
   return regExp.test(hashtag);
 }
-
-function checkInputIsActive () {
-  const currentElement = document.activeElement;
-  return currentElement === inputHashtag || currentElement === inputComment;
-}
-
+//Проверка хэштегов на соответствие условиям (сделал как подсказывали в самом ДЗ, возможно позже вернусь)
 function checkHashtags () {
   const hashtags = inputHashtag.value.split(' ');
-  const noTooMuchHashtags = hashtags.length <= MAX_COUNT_HASHTAGS;
+  const notManyHashtags = hashtags.length <= MAX_HASHTAGS_COUNT;
   let allHashtagsCorrect = true;
   let noHashtagMatches = true;
   if(inputHashtag.value === '') {
     return {
-      noTooMuchHashtags: true,
+      notManyHashtags: true,
       allHashtagsCorrect: true,
       noHashtagMatches: true,
     };
   }
   for(let i = 0; i < hashtags.length; i++) {
-
     if(!checkSameHashtags(hashtags[i])) {
       allHashtagsCorrect = false;
     }
   }
   for(let i = 0; i < hashtags.length; i++) {
-
     for(let j = i+1; j < hashtags.length; j++) {
-
       if(hashtags[i].toLowerCase() === hashtags[j].toLowerCase()) {
         noHashtagMatches = false;
       }
-
     }
-
   }
   return {
-    noTooMuchHashtags: noTooMuchHashtags,
+    notManyHashtags: notManyHashtags,
     allHashtagsCorrect: allHashtagsCorrect,
     noHashtagMatches: noHashtagMatches,
   };
 }
-
-function printMessagesValidationHashtag() {
-  const resultCheckHashtags = checkHashtags();
-
-  if(!resultCheckHashtags.noTooMuchHashtags) {
-    inputHashtag.setCustomValidity('Хэш-тегов должно быть не больше пяти');
+//Меняет стандартную валидацию и сообщения
+function showInfoValidation() {
+  const outcomeCheckHashtags = checkHashtags();
+  if(!outcomeCheckHashtags.notManyHashtags) {
+    inputHashtag.setCustomValidity('Не более 5 хэштегов');
     inputHashtag.classList.add('input-error');
   }
-
-  else if (!resultCheckHashtags.allHashtagsCorrect) {
-    inputHashtag.setCustomValidity('Хэш-тег начинается с решётки, затем не менее 1, не более 20 символов: буквы и/или цифры');
+  else if (!outcomeCheckHashtags.allHashtagsCorrect) {
+    inputHashtag.setCustomValidity('Хэштег должен начинаться со знака решетки быть не короче 1 символа, и не длиннее 20 символов');
     inputHashtag.classList.add('input-error');
   }
-
-  else if (!resultCheckHashtags.noHashtagMatches) {
-    inputHashtag.setCustomValidity('Хэш-теги не должны повторяться. Строчные и прописные буквы не различаются');
+  else if (!outcomeCheckHashtags.noHashtagMatches) {
+    inputHashtag.setCustomValidity('Повторы хэштегов не допускаются. Регистр не учитывается');
     inputHashtag.classList.add('input-error');
   }
-
   else {
     inputHashtag.setCustomValidity('');
     if(inputHashtag.classList.contains('input-error')) {
       inputHashtag.classList.remove('input-error');
     }
   }
-
   inputHashtag.reportValidity();
 }
-
+//Проверка корректности сообщения
 function checkComment () {
-  if(!getLength(inputComment.value, MAX_LENGTH_COMMENT)) {
-    inputComment.setCustomValidity('Комментарий не может быть длинее 140 символов');
+  if(!getLength(inputComment.value, MAX_COMMENT_LENGTH)) {
+    inputComment.setCustomValidity('Превышен лимит символов');
     inputComment.classList.add('input-error');
   }
-
   else {
     inputComment.setCustomValidity('');
 
@@ -95,16 +82,12 @@ function checkComment () {
       inputComment.classList.remove('input-error');
     }
   }
-
   inputComment.reportValidity();
 }
-
-function hashtagInputHandler () {
-  printMessagesValidationHashtag();
+function hashtagInputChecker () {
+  showInfoValidation();
 }
-
-function commentInputHandler () {
+function commentInputChecker () {
   checkComment();
 }
-
-export { checkInputIsActive, inputHashtag, inputComment, hashtagInputHandler, commentInputHandler };
+export { checkInputIsActive, hashtagInputChecker, commentInputChecker, inputHashtag, inputComment };

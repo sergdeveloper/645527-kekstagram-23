@@ -2,7 +2,7 @@ import { fullscreen} from './fullscreen.js';
 const miniPhoto = document.querySelector('#picture').content.querySelector('.picture');
 const photosList = document.querySelector('.pictures');
 const listNewFragment = document.createDocumentFragment();
-
+//Создает превью в галерее из шаблона
 const createFullGallery = function(objects){
   objects.forEach((picture) => {
     const photoElement = miniPhoto.cloneNode(true);

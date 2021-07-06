@@ -1,60 +1,52 @@
 import { isEscapeEvent } from './utils.js';
-import { checkInputIsActive, inputHashtag, inputComment, hashtagInputHandler, commentInputHandler } from './validation.js';
-
+import {  checkInputIsActive, hashtagInputChecker, commentInputChecker, inputHashtag, inputComment } from './validation.js';
 const body = document.querySelector('body');
-const formDownloadPicture = document.querySelector('#upload-select-image'); //форма, собирающая все данные про изображение
-const inputFilePicture = formDownloadPicture.querySelector('#upload-file'); //поле загрузки фото
-
-const popupEditor = formDownloadPicture.querySelector('.img-upload__overlay'); //окно редактора загруженной картинки
-const buttonCloseEditor = popupEditor.querySelector('#upload-cancel'); //кнопка, закрывает редактор
-
-function openPopup () {
-  popupEditor.classList.remove('hidden');
-  body.classList.add('modal-open');
-
-  document.addEventListener('keydown', documentKeydownHandler);
-  buttonCloseEditor.addEventListener('keydown', buttonCloseEditorKeydownHandler);
-
-  inputHashtag.addEventListener('input', hashtagInputHandler);
-  inputComment.addEventListener('input', commentInputHandler);
-}
-
-function closePopup () {
-  popupEditor.classList.add('hidden');
-  body.classList.remove('modal-open');
-
-  inputFilePicture.value = '';
-  inputHashtag.value = '';
-  inputComment.value = '';
-
-  document.removeEventListener('keydown', documentKeydownHandler);
-  buttonCloseEditor.removeEventListener('keydown', buttonCloseEditorKeydownHandler);
-
-  inputHashtag.removeEventListener('input', hashtagInputHandler);
-  inputComment.removeEventListener('input', commentInputHandler);
-}
-
-function documentKeydownHandler (evt) {
+const formDownloadPicture = document.querySelector('#upload-select-image'); 
+const inputFile = formDownloadPicture.querySelector('#upload-file');
+const overlayEditor = formDownloadPicture.querySelector('.img-upload__overlay');
+const buttonClose = popupEditor.querySelector('#upload-cancel'); 
+//Обработчик нажатий на ESCAPE
+function documentdownChecker (evt) {
   if(isEscapeEvent(evt) && !checkInputIsActive()) {
     evt.preventDefault();
     closePopup();
   }
 }
-
-function buttonCloseEditorKeydownHandler (evt) {
+//Обработчик нажатий на ENTER
+function buttonCloseChecker(evt) {
   if(isEnterEvent(evt)) {
     closePopup();
   }
 }
-
-function inputFilePictureChangeHanlder () {
+//Обработчик изменения загружаемого файла
+function inputFileChangeChecker () {
   openPopup();
 }
-
-function buttonCloseEditorClickHandler () {
+//Обработчик клика на "Закрыть"
+function buttonCloseClickChecker () {
   closePopup();
 }
+//Функция открытия попапа
+function openPopup () {
+  overlayEditor.classList.remove('hidden');
+  body.classList.add('modal-open');
+  document.addEventListener('keydown', documentdownChecker);
+  buttonClose.addEventListener('keydown', buttonCloseChecker);
+  inputHashtag.addEventListener('input', hashtagInputChecker);
+  inputComment.addEventListener('input', commentInputChecker);
+}
+buttonClose.addEventListener('click', buttonCloseClickChecker);
+//Функция закрытия попапа (Обнуляет содержимое полей)
+function closePopup () {
+  overlayEditor.classList.add('hidden');
+  body.classList.remove('modal-open');
+  inputFile.value = '';
+  inputComment.value = '';
+  inputHashtag.value = '';
+  inputHashtag.removeEventListener('input', hashtagInputChecker);
+  inputComment.removeEventListener('input', commentInputChecker);
+  document.removeEventListener('keydown', documentdownChecker);
+  buttonCloseE.removeEventListener('keydown', buttonCloseChecker);
+}
+inputFile.addEventListener('change', inputFileChangeChecker);
 
-inputFilePicture.addEventListener('change', inputFilePictureChangeHanlder);
-
-buttonCloseEditor.addEventListener('click', buttonCloseEditorClickHandler);
