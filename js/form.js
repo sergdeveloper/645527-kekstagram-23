@@ -4,7 +4,7 @@ const body = document.querySelector('body');
 const formDownloadPicture = document.querySelector('#upload-select-image'); 
 const inputFile = formDownloadPicture.querySelector('#upload-file');
 const overlayEditor = formDownloadPicture.querySelector('.img-upload__overlay');
-const buttonClose = popupEditor.querySelector('#upload-cancel'); 
+const buttonClose = overlayEditor.querySelector('#upload-cancel'); 
 //Обработчик нажатий на ESCAPE
 function documentdownChecker (evt) {
   if(isEscapeEvent(evt) && !checkInputIsActive()) {
