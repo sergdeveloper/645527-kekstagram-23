@@ -7,17 +7,13 @@ const getRandom = function (minimal, maximal) {
     return 'Минимальное число не может быть отрицательным и больше макисмального';
   }
 };
-getRandom (100, 90);
 //проверка длины комментария
 const getLength = function (field, amount) {
-  if (field.length <= amount) {
-    return 'Комментарий отправлен';
+  if (amount <= 0) {
+    return null;
   }
-  else {
-    return 'Превышен лимит символов';
-  }
+  return field.length <= amount;
 };
-getLength(100, 140);
 //Создание нового элемента
 const createNewElement = (tagName, className) => {
   const newElement = document.createElement(tagName);

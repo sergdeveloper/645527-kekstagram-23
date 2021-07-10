@@ -3,8 +3,8 @@ const MAX_COMMENT_LENGTH = 140;
 const MAX_HASHTAGS_COUNT = 5;
 const formDownloadPicture = document.querySelector('#upload-select-image');
 const overlayEditor = formDownloadPicture.querySelector('.img-upload__overlay');
-const inputComment = overlayEditor.querySelector('#input-comment');
-const inputHashtag = overlayEditor.querySelector('#input-hashtag');
+const inputHashtag = overlayEditor.querySelector('.text__hashtags');
+const inputComment = overlayEditor.querySelector('.text__description');
 //Проверка активности инпута
 function checkInputIsActive () {
   const activeElement = document.activeElement;
