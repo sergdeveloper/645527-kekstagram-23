@@ -1,5 +1,4 @@
 import { createNewElement } from './utils.js';
-
 const bigPictureWrapper = document.querySelector('.big-picture');
 const bigPicture = bigPictureWrapper.querySelector('.big-picture__img');
 const likesCount = bigPictureWrapper.querySelector('.likes-count');
@@ -14,7 +13,7 @@ const bigPictureImage = bigPicture.querySelector('img');
 const avatarWidth = '35';
 const avatarHeigth = '35';
 const commentsOnScreen = 5;
-
+//Создание одного комментария
 const createComment = () => {
   const commentUser = createNewElement('li', 'social__comment');
   const user = createNewElement('img', 'social__picture');
@@ -25,17 +24,15 @@ const createComment = () => {
   commentUser.appendChild(textComment);
   return commentUser;
 };
-
+//Создание всех комментариев
 const createComments = (amount) => {
   const commentAmount = (amount >= commentsOnScreen) ? commentsOnScreen : amount;
-
   for (let i = 1; i <= commentAmount; i++) {
     commentsFragment.appendChild(createComment());
   }
-
   commentsList.appendChild(commentsFragment);
 };
-
+//Добавляет комментарии к
 const addCommnetsContent = (comments) => {
 
   for (let i = 0; i < commentsItem.length; i++) {
@@ -47,7 +44,7 @@ const addCommnetsContent = (comments) => {
     textComment.textContent = comments.text;
   }
 };
-
+//Убрать магические числа
 const editComments = (picture) => {
   for (let i = commentsItem.length - 1; i >= 0; i--) {
     commentsItem[i].remove();
@@ -58,7 +55,7 @@ const editComments = (picture) => {
   commentsCountWrapper.classList.add('hidden');
   commentsLoader.classList.add('hidden');
 };
-
+//Отрисовка фуллскрина при нажатии на превью
 const fullscreen = (picture) => {
   bigPictureWrapper.classList.remove('hidden');
   bigPictureImage.src = picture.url;
@@ -68,14 +65,14 @@ const fullscreen = (picture) => {
   editComments(picture);
   document.body.classList.add('modal-open');
 };
-
+//Обработчик нажатия на Эскейп
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === 27) {
     bigPictureWrapper.classList.add('hidden');
     document.body.classList.remove('modal-open');
   }
 });
-
+//Закрытие фуллскрина, через кнопку "закрыть"
 const  fullscreenClose = document.querySelector('.big-picture__cancel');
 fullscreenClose.addEventListener('click', function(){
   bigPictureWrapper.classList.add('hidden');
