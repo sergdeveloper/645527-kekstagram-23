@@ -9,7 +9,7 @@ const createFullGallery = function(objects){
     photoElement.querySelector('.picture__img').src = picture.url;
     photoElement.querySelector('.picture__comments').textContent = picture.description.length;
     photoElement.querySelector('.picture__likes').textContent = picture.likes;
-    photoElement.addEventListener('click', function () {
+    photoElement.addEventListener('click', () => {
       fullscreen(picture);
     });
     photosList.appendChild(photoElement);

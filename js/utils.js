@@ -24,5 +24,8 @@ const createNewElement = (tagName, className) => {
 function isEscapeEvent(evt) {
   return evt.key === 'Escape' || evt.key === 'Esc';
 }
-
-export {getRandom, getLength, createNewElement, isEscapeEvent};
+//Проверка нажатия ENTER
+function isEnterEvent(evt) {
+  return evt.key === 'Enter';
+}
+export {getRandom, getLength, createNewElement, isEscapeEvent, isEnterEvent};
