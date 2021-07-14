@@ -1,5 +1,6 @@
 import { isEscapeEvent, isEnterEvent } from './utils.js';
 import {  checkInputIsActive, hashtagInputChecker, commentInputChecker, inputHashtag, inputComment } from './validation.js';
+import { setDefaultSetting, removeEffectsCheckers } from './effects.js';
 const body = document.querySelector('body');
 const formDownloadPicture = document.querySelector('#upload-select-image');
 const inputFile = formDownloadPicture.querySelector('#upload-file');
@@ -16,6 +17,8 @@ function closePopup () {
   inputComment.removeEventListener('input', commentInputChecker);
   document.removeEventListener('keydown', documentdownChecker);
   buttonClose.removeEventListener('keydown', buttonCloseChecker);
+  removeEffectsCheckers();
+  console.log(31231)
 }
 //Обработчик нажатий на ENTER
 function buttonCloseChecker(evt) {
@@ -31,6 +34,7 @@ function openPopup () {
   buttonClose.addEventListener('keydown', buttonCloseChecker);
   inputHashtag.addEventListener('input', hashtagInputChecker);
   inputComment.addEventListener('input', commentInputChecker);
+  setDefaultSetting();
 }
 buttonClose.addEventListener('click', buttonCloseClickChecker);
 //Обработчик нажатий на ESCAPE
