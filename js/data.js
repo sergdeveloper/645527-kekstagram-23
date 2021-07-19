@@ -7,7 +7,7 @@ const textArray = ['Всё отлично!','В целом всё неплохо
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 const names = ['Андрей', 'Иван', 'Алексей', 'Дмитрий', 'Антон', 'Максим'];
 const comments = [];
-const createObjects = function(number){
+const createObjects = (number) => {
   for (let i = 0; i < number; i++) {
     comments.push({
       id: i+1,

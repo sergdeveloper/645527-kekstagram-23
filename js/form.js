@@ -1,6 +1,7 @@
 import { isEscapeEvent, isEnterEvent } from './utils.js';
-import {  checkInputIsActive, hashtagInputChecker, commentInputChecker, inputHashtag, inputComment } from './validation.js';
+import { checkInputIsActive, hashtagInputChecker, commentInputChecker, inputHashtag, inputComment } from './validation.js';
 import { setDefaultSetting, removeEffectsCheckers } from './effects.js';
+import { showLoadedImage } from './own-photo.js';
 const body = document.querySelector('body');
 const formDownloadPicture = document.querySelector('#upload-select-image');
 const sendForm = document.querySelector('.img-upload__form');
@@ -39,6 +40,7 @@ function openPopup () {
   buttonClose.addEventListener('keydown', buttonCloseChecker);
   inputHashtag.addEventListener('input', hashtagInputChecker);
   inputComment.addEventListener('input', commentInputChecker);
+  showLoadedImage();
   setDefaultSetting();
 }
 buttonClose.addEventListener('click', buttonCloseClickChecker);
@@ -119,7 +121,7 @@ function showErrorPopup () {
 }
 //Отображение сообщения с неуспешным исходом при загрузке
 function showErrorPopupServer () {
-  showMessage(errorTemplateMessageServer, '.error__button');
+  showMessage(errorTemplateMessageServer, '.error__button--server');
 }
 //Функция отправки формы, с разными исходами
 const setUserFormSubmit = (onSuccess, onFail) => {
