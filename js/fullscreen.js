@@ -16,7 +16,7 @@ const fullscreen = (picture) => {
   document.body.classList.add('modal-open');
 };
 //Обработчик нажатия на Эскейп
-document.addEventListener('keydown', function (evt) {
+document.addEventListener('keydown', (evt) => {
   if (evt.keyCode === 27) {
     bigPictureWrapper.classList.add('hidden');
     document.body.classList.remove('modal-open');
@@ -24,7 +24,7 @@ document.addEventListener('keydown', function (evt) {
 });
 //Закрытие фуллскрина, через кнопку "закрыть"
 const  fullscreenClose = document.querySelector('.big-picture__cancel');
-fullscreenClose.addEventListener('click', function(){
+fullscreenClose.addEventListener('click', () => {
   bigPictureWrapper.classList.add('hidden');
   document.body.classList.remove('modal-open');
 });

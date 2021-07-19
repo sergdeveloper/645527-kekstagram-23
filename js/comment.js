@@ -32,31 +32,53 @@ const addCommnetsContent = (comments) => {
   for (let i = 0; i < commentsItem.length; i++) {
     const commentUser = commentsItem[i];
     const avatar = commentUser.querySelector('.social__picture');
-    avatar.src = picture.comments.avatar;
-    avatar.alt = picture.comments.author;
+    avatar.src = comments[i].avatar;
+    avatar.alt = comments[i].name;
     const textComment = commentUser.querySelector('.social__text');
-    textComment.textContent = comments.text;
+    textComment.textContent = comments[i].message;
   }
 };
 //Убрать магические числа
+
 const editComments = (picture) => {
+
+  const maxComments = picture.comments.length;
+  let currentLoadedComments = 0;
+  let commentsLeftToLoad = picture.comments.length;
+  let imageLoadedComments;
   for (let i = commentsItem.length - 1; i >= 0; i--) {
     commentsItem[i].remove();
   }
-  let currentLoadedComments = 5;
-  const maxComments = picture.comments.length;
-  createComments(5);
-  addCommnetsContent(picture.comment);
-  loadMore.addEventListener('click', function(){
-    if (currentLoadedComments < maxComments){
-      createComments(5);
-      addCommnetsContent(picture.comment);
-      currentLoadedComments += 5;
-      const imageLoadedComments = currentLoadedComments.toString();
-      currentComments.textContent = imageLoadedComments;
-    } else {
-      loadMore.classList.add('hidden');
-    }
-  });
+  if (maxComments > 5 && commentsLeftToLoad >= 5) {
+    createComments(5);
+    addCommnetsContent(picture.comments);
+    commentsLeftToLoad -=5;
+    currentLoadedComments +=5;
+    loadMore.addEventListener('click', () => {
+      if(currentLoadedComments < maxComments && commentsLeftToLoad >= 5){
+        createComments(5);
+        addCommnetsContent(picture.comments);
+        commentsLeftToLoad -=5;
+        currentLoadedComments +=5;
+        imageLoadedComments = currentLoadedComments.toString();
+        currentComments.textContent = imageLoadedComments;
+      }
+      else {
+        createComments(commentsLeftToLoad);
+        addCommnetsContent(picture.comments);
+        currentLoadedComments +=commentsLeftToLoad;
+        imageLoadedComments = currentLoadedComments.toString();
+        currentComments.textContent = imageLoadedComments;
+        loadMore.classList.add('hidden');
+      }
+    });
+  }else {
+    createComments(maxComments);
+    addCommnetsContent(picture.comments);
+    loadMore.classList.add('hidden');
+    currentLoadedComments = maxComments;
+    imageLoadedComments = currentLoadedComments.toString();
+    currentComments.textContent = imageLoadedComments;
+  }
 };
 export {editComments};
