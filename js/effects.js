@@ -1,4 +1,15 @@
 import { scaleToSmallClickHandler, scaleToBigClickHandler } from './scale.js';
+const DEFAULT_SCALE = 1;
+const DEFAULT_INPUT_VALUE = '100%';
+const DEFAULT_FILL = '100%';
+const constantsForEffects = {
+  EFFECT_ID_NUMBER: 7,
+  SCALE_COEFFICIENT: 100,
+  MAXIMAL_BLUR: 3,
+  MINIMAL_BRIGHT: 1,
+  BRIGHT_MULTIPLIER: 2,
+};
+
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const scaleToSmall = uploadOverlay.querySelector('.scale__control--smaller');
 const scaleToBig = uploadOverlay.querySelector('.scale__control--bigger');
@@ -8,17 +19,7 @@ const imgUploadPreview = uploadOverlay.querySelector('.img-upload__preview').chi
 const effectValue = document.querySelector('.img-upload__effect-level');
 const inputLevelValue = effectValue.querySelector('.effect-level__value');
 const sliderEffect = effectValue.querySelector('.effect-level__slider');
-const DEFAULT_SCALE = 1;
-const DEFAULT_INPUT_VALUE = '100%';
-const DEFAULT_FILL = '100%';
 const imageEffects = ['effects__preview--none','effects__preview--chrome','effects__preview--sepia','effects__preview--marvin','effects__preview--phobos','effects__preview--heat'];
-const constantsForEffects = {
-  EFFECT_ID_NUMBER: 7,
-  SCALE_COEFFICIENT: 100,
-  MAXIMAL_BLUR: 3,
-  MINIMAL_BRIGHT: 1,
-  BRIGHT_MULTIPLIER: 2,
-};
 let effectId = 'effect-none';
 function removeEffects () {
   for (let i = 0; i < imageEffects.length; i++) {

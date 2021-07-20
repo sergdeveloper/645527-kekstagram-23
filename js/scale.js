@@ -5,6 +5,7 @@ const constsForScale = {
   SCALE_DEFAULT_VALUE: '100%',
   SCALE_COEFFICIENT: 100,
 };
+
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const inputScaleControl = uploadOverlay.querySelector('.scale__control--value');
 const uploadPreview = uploadOverlay.querySelector('.img-upload__preview');

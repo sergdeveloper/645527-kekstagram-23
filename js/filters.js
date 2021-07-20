@@ -1,11 +1,12 @@
 import { createFullGallery } from './photos.js';
 import { debounce } from './utils/debounce.js';
+const FILTER_SHOWED_PICTURES = 10;
+
 const picturesContainer = document.querySelector('.pictures');
 const pictureFilters = document.querySelector('.img-filters');
 const buttonDefault = pictureFilters.querySelector('#filter-default');
 const buttonMostComments = pictureFilters.querySelector('#filter-discussed');
 const buttonRandom = pictureFilters.querySelector('#filter-random');
-const FILTER_SHOWED_PICTURES = 10;
 //Миксует массив фото
 function getMix (array) {
   for (let i = array.length - 1; i > 0; i--) {

@@ -1,6 +1,7 @@
+const ALLOWED_FORMATS = ['gif', 'jpg', 'png'];
+
 const inputOwnPicture = document.querySelector('#upload-file');
 const picturePreview = document.querySelector('.img-upload__preview > img');
-const ALLOWED_FORMATS = ['gif', 'jpg', 'png'];
 //Переводит в нижний регистр, проверяет формат загруженного пользовательского фото
 function showLoadedImage () {
   const file = inputOwnPicture.files[0];

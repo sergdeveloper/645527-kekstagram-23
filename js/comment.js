@@ -1,19 +1,20 @@
 import { createNewElement } from './utils.js';
+const AVATAR_WIDTH = '35';
+const AVATAR_HEIGHT = '35';
+const COMMENTS_ON_SCREEN = 5;
+
 const commentsFragment = document.createDocumentFragment();
 const bigPictureWrapper = document.querySelector('.big-picture');
 const commentsList = bigPictureWrapper.querySelector('.social__comments');
 const commentsItem = commentsList.children;
 const loadMore = document.querySelector('.social__comments-loader');
-const avatarWidth = '35';
-const avatarHeigth = '35';
-const commentsOnScreen = 5;
 const currentComments = bigPictureWrapper.querySelector('.current-count');
 //Создание одного комментария
 const createComment = () => {
   const commentUser = createNewElement('li', 'social__comment');
   const user = createNewElement('img', 'social__picture');
-  user.width = avatarWidth;
-  user.height = avatarHeigth;
+  user.width = AVATAR_WIDTH;
+  user.height = AVATAR_HEIGHT;
   commentUser.appendChild(user);
   const textComment = createNewElement('p', 'social__text');
   commentUser.appendChild(textComment);
@@ -21,7 +22,7 @@ const createComment = () => {
 };
 //Создание всех комментариев
 const createComments = (amount) => {
-  const commentAmount = (amount >= commentsOnScreen) ? commentsOnScreen : amount;
+  const commentAmount = (amount >= COMMENTS_ON_SCREEN) ? COMMENTS_ON_SCREEN : amount;
   for (let i = 1; i <= commentAmount; i++) {
     commentsFragment.appendChild(createComment());
   }
