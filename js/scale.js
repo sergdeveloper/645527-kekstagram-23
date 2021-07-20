@@ -1,8 +1,3 @@
-const uploadOverlay = document.querySelector('.img-upload__overlay');
-const inputScaleControl = uploadOverlay.querySelector('.scale__control--value');
-const uploadPreview = uploadOverlay.querySelector('.img-upload__preview');
-const scaleToSmall = uploadOverlay.querySelector('.scale__control--smaller');
-const scaleToBig = uploadOverlay.querySelector('.scale__control--bigger');
 const constsForScale = {
   SCALE_STEP: 0.25,
   SCALE_MINIMAL_VALUE: 0.25,
@@ -10,6 +5,11 @@ const constsForScale = {
   SCALE_DEFAULT_VALUE: '100%',
   SCALE_COEFFICIENT: 100,
 };
+const uploadOverlay = document.querySelector('.img-upload__overlay');
+const inputScaleControl = uploadOverlay.querySelector('.scale__control--value');
+const uploadPreview = uploadOverlay.querySelector('.img-upload__preview');
+const scaleToSmall = uploadOverlay.querySelector('.scale__control--smaller');
+const scaleToBig = uploadOverlay.querySelector('.scale__control--bigger');
 function getScale (percent) {
   const numberPercent = Number(percent.slice(0, -1));
   return numberPercent / constsForScale.SCALE_COEFFICIENT;
@@ -47,10 +47,10 @@ function minimizeScale () {
     changeScale(changedScale);
   }
 }
-function scaleToSmallClickChecker () {
+function scaleToSmallClickHandler () {
   minimizeScale();
 }
-function scaleToBigClickChecker () {
+function scaleToBigClickHandler () {
   maximizeScale();
 }
-export { scaleToSmallClickChecker, scaleToBigClickChecker };
+export { scaleToSmallClickHandler, scaleToBigClickHandler };

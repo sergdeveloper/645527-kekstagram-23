@@ -1,6 +1,6 @@
 import { isEscapeEvent, isEnterEvent } from './utils.js';
-import { checkInputIsActive, hashtagInputChecker, commentInputChecker, inputHashtag, inputComment } from './validation.js';
-import { setDefaultSetting, removeEffectsCheckers } from './effects.js';
+import { checkInputIsActive, hashtagInputHandler, commentInputHandler, inputHashtag, inputComment } from './validation.js';
+import { setDefaultSetting, removeEffectsHandlers } from './effects.js';
 import { showLoadedImage } from './own-photo.js';
 const body = document.querySelector('body');
 const formDownloadPicture = document.querySelector('#upload-select-image');
@@ -20,14 +20,14 @@ function closePopup () {
   inputFile.value = '';
   inputComment.value = '';
   inputHashtag.value = '';
-  inputHashtag.removeEventListener('input', hashtagInputChecker);
-  inputComment.removeEventListener('input', commentInputChecker);
-  document.removeEventListener('keydown', documentdownChecker);
-  buttonClose.removeEventListener('keydown', buttonCloseChecker);
-  removeEffectsCheckers();
+  inputHashtag.removeEventListener('input', hashtagInputHandler);
+  inputComment.removeEventListener('input', commentInputHandler);
+  document.removeEventListener('keydown', documentdownHandler);
+  buttonClose.removeEventListener('keydown', buttonCloseHandlers);
+  removeEffectsHandlers();
 }
 //Обработчик нажатий на ENTER
-function buttonCloseChecker(evt) {
+function buttonCloseHandlers(evt) {
   if(isEnterEvent(evt)) {
     closePopup();
   }
@@ -36,30 +36,30 @@ function buttonCloseChecker(evt) {
 function openPopup () {
   overlayEditor.classList.remove('hidden');
   body.classList.add('modal-open');
-  document.addEventListener('keydown', documentdownChecker);
-  buttonClose.addEventListener('keydown', buttonCloseChecker);
-  inputHashtag.addEventListener('input', hashtagInputChecker);
-  inputComment.addEventListener('input', commentInputChecker);
+  document.addEventListener('keydown', documentdownHandler);
+  buttonClose.addEventListener('keydown', buttonCloseHandlers);
+  inputHashtag.addEventListener('input', hashtagInputHandler);
+  inputComment.addEventListener('input', commentInputHandler);
   showLoadedImage();
   setDefaultSetting();
 }
-buttonClose.addEventListener('click', buttonCloseClickChecker);
+buttonClose.addEventListener('click', buttonCloseClickHandler);
 //Обработчик нажатий на ESCAPE
-function documentdownChecker (evt) {
+function documentdownHandler (evt) {
   if(isEscapeEvent(evt) && !checkInputIsActive()) {
     evt.preventDefault();
     closePopup();
   }
 }
 //Обработчик изменения загружаемого файла
-function inputFileChangeChecker () {
+function inputFileChangeHandler () {
   openPopup();
 }
 //Обработчик клика на "Закрыть"
-function buttonCloseClickChecker () {
+function buttonCloseClickHandler () {
   closePopup();
 }
-inputFile.addEventListener('change', inputFileChangeChecker);
+inputFile.addEventListener('change', inputFileChangeHandler);
 //Создание сообщения из шаблона
 function createMessage (messageTemplate) {
   const element = messageTemplate.cloneNode(true);
@@ -72,11 +72,11 @@ function closeMessage () {
   body.removeChild(message);
 }
 //Обработчик нажатия на закрыть сообзение
-function buttonCloseMessageClickChecker () {
+function buttonCloseMessageClickHandler () {
   closeMessage();
 }
 //Обработчик нажатия на эскейп
-function documentKeydownChecker (evt) {
+function documentKeydownHandler (evt) {
   if(isEscapeEvent(evt)) {
     evt.preventDefault();
     closeMessage();
@@ -93,7 +93,7 @@ function checkIsItPopup (element) {
   return false;
 }
 //Обработчик нажатия на оверлей
-function overlayClickChecker(evt) {
+function overlayClickHandler(evt) {
   const element = body.lastChild;
   if(checkIsItPopup(element)) {
     if(checkIsItPopup(evt.target)) {
@@ -105,9 +105,9 @@ function overlayClickChecker(evt) {
 function showMessage(message, buttonClass) {
   body.appendChild(createMessage(message));
   const buttonCloseMessage = document.querySelector(buttonClass);
-  buttonCloseMessage.addEventListener('click', buttonCloseMessageClickChecker);
-  document.addEventListener('keydown', documentKeydownChecker);
-  document.addEventListener('click', overlayClickChecker);
+  buttonCloseMessage.addEventListener('click', buttonCloseMessageClickHandler);
+  document.addEventListener('keydown', documentKeydownHandler);
+  document.addEventListener('click', overlayClickHandler);
 }
 //Отображение сообщения с успешным исходом
 function showSuccessPopup () {

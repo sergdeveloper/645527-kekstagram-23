@@ -1,4 +1,4 @@
-import { scaleToSmallClickChecker, scaleToBigClickChecker } from './scale.js';
+import { scaleToSmallClickHandler, scaleToBigClickHandler } from './scale.js';
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const scaleToSmall = uploadOverlay.querySelector('.scale__control--smaller');
 const scaleToBig = uploadOverlay.querySelector('.scale__control--bigger');
@@ -31,8 +31,8 @@ function setDefaultScale () {
   imgUploadPreview.style.transform = `scale(${DEFAULT_SCALE})`;
   inputScaleControl.value = DEFAULT_INPUT_VALUE;
   scaleToBig.setAttribute('disabled', 'disabled');
-  scaleToSmall.addEventListener('click', scaleToSmallClickChecker);
-  scaleToBig.addEventListener('click', scaleToBigClickChecker);
+  scaleToSmall.addEventListener('click', scaleToSmallClickHandler);
+  scaleToBig.addEventListener('click', scaleToBigClickHandler);
 }
 function setDefaultEffects () {
   removeEffects ();
@@ -94,7 +94,7 @@ function createSliderEffect () {
     step: 1,
     connect: 'lower',
   });
-  sliderEffect.noUiSlider.on('update', effectUpdateChecker);
+  sliderEffect.noUiSlider.on('update', effectUpdateHandler);
 }
 function applyEffect (effect) {
   effectId = effect.getAttribute('id');
@@ -113,7 +113,7 @@ function applyEffect (effect) {
   const pictureClassName = `effects__preview--${effectName}`;
   imgUploadPreview.classList.add(pictureClassName);
 }
-function effectUpdateChecker (_, handle, unencoded) {
+function effectUpdateHandler (_, handle, unencoded) {
   const levelEffect = unencoded[handle];
   changeLevelEffect(levelEffect);
 }
@@ -122,22 +122,22 @@ function newDefaultSetting () {
   imgUploadPreview.style.removeProperty('filter');
   inputLevelValue.value = '';
 }
-function inputEffectsChecker (evt) {
+function inputEffectsHandler (evt) {
   newDefaultSetting();
   applyEffect(evt.target);
 }
-function removeEffectsCheckers () {
-  scaleToSmall.removeEventListener('click', scaleToSmallClickChecker);
-  scaleToBig.removeEventListener('click', scaleToBigClickChecker);
+function removeEffectsHandlers () {
+  scaleToSmall.removeEventListener('click', scaleToSmallClickHandler);
+  scaleToBig.removeEventListener('click', scaleToBigClickHandler);
   for(let i = 0; i < inputEffects.length; i++) {
-    inputEffects[i].removeEventListener('click', inputEffectsChecker);
+    inputEffects[i].removeEventListener('click', inputEffectsHandler);
   }
 }
 function setDefaultSetting () {
   setDefaultScale();
   setDefaultEffects();
   for(let i = 0; i < inputEffects.length; i++) {
-    inputEffects[i].addEventListener('click', inputEffectsChecker);
+    inputEffects[i].addEventListener('click', inputEffectsHandler);
   }
 }
-export { setDefaultSetting, removeEffectsCheckers };
+export { setDefaultSetting, removeEffectsHandlers };

@@ -66,7 +66,7 @@ function filterImageDiscussed (picture) {
   createFullGallery(resultArray);
 }
 //Обработчик клика на фильтр
-function filtersClickChecker (evt, data) {
+function filtersClickHandler (evt, data) {
   const filterId = evt.target.getAttribute('id');
   switch(filterId) {
     case 'filter-default':
@@ -88,7 +88,7 @@ function turnOnFilters (data) {
   disableButton(buttonDefault);
   unlockButton(buttonRandom);
   unlockButton(buttonMostComments);
-  pictureFilters.addEventListener('click', debounce((evt) => filtersClickChecker(evt, data)));
+  pictureFilters.addEventListener('click', debounce((evt) => filtersClickHandler(evt, data)));
 }
 export { turnOnFilters };
 

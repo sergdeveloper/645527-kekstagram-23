@@ -6,7 +6,7 @@ const commentsCount = bigPictureWrapper.querySelector('.comments-count');
 const textDescription = bigPictureWrapper.querySelector('.social__caption');
 const bigPictureImage = bigPicture.querySelector('img');
 //Отрисовка фуллскрина при нажатии на превью
-const fullscreen = (picture) => {
+const openFullscreen = (picture) => {
   bigPictureWrapper.classList.remove('hidden');
   bigPictureImage.src = picture.url;
   likesCount.textContent = picture.likes;
@@ -28,4 +28,4 @@ fullscreenClose.addEventListener('click', () => {
   bigPictureWrapper.classList.add('hidden');
   document.body.classList.remove('modal-open');
 });
-export { bigPictureWrapper, fullscreen };
+export { bigPictureWrapper, openFullscreen };

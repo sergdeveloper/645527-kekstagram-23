@@ -1,4 +1,4 @@
-import { fullscreen} from './fullscreen.js';
+import { openFullscreen} from './fullscreen.js';
 const miniPhoto = document.querySelector('#picture').content.querySelector('.picture');
 const photosList = document.querySelector('.pictures');
 const listNewFragment = document.createDocumentFragment();
@@ -10,7 +10,7 @@ const createFullGallery = function(objects){
     photoElement.querySelector('.picture__comments').textContent = picture.comments.length;
     photoElement.querySelector('.picture__likes').textContent = picture.likes;
     photoElement.addEventListener('click', () => {
-      fullscreen(picture);
+      openFullscreen(picture);
     });
     photosList.appendChild(photoElement);
   });

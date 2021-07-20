@@ -84,10 +84,10 @@ function checkComment () {
   }
   inputComment.reportValidity();
 }
-function hashtagInputChecker () {
+function hashtagInputHandler () {
   showInfoValidation();
 }
-function commentInputChecker () {
+function commentInputHandler () {
   checkComment();
 }
-export { checkInputIsActive, hashtagInputChecker, commentInputChecker, inputHashtag, inputComment };
+export { checkInputIsActive, hashtagInputHandler, commentInputHandler, inputHashtag, inputComment };
